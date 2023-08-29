@@ -10,33 +10,39 @@ export default function LoginScreen() {
 
     const { setUser } = useContext(UserContext);
 
-    function handlePress() {
-        fetch("http://localhost:3001/auth/sign_in", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "access-token": "access-token", // トークンの値
-                client: "client", // クライアントIDの値
-                expiry: "expiry", // トークンの有効期限の値
-                uid: "uid", // ユーザーのUIDの値
-                "token-type": "token-type", // トークンのタイプ（Bearerなど）
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.data) {
-                    setUser(data.data);
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: "Calendar" }],
-                    });
-                }
-            })
-            .catch((err) => console.log(err));
+    async function handlePress() {
+        try {
+            const response = await fetch("http://localhost:3001/auth/sign_in", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                const accessToken = response.headers.get("access-token");
+                const client = response.headers.get("client");
+                const uid = response.headers.get("uid");
+                const tokenType = response.headers.get("token-type");
+
+                setUser(responseData.data);
+
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Calendar" }],
+                });
+            } else {
+                console.log("Login failed:", responseData.errors);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 
     return (
