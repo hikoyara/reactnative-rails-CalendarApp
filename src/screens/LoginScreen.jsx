@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../contexts/UserContext";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const { setUser } = useContext(UserContext);
 
     function handlePress() {
         fetch("http://localhost:3001/auth/sign_in", {
@@ -26,6 +29,7 @@ export default function LoginScreen() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.data) {
+                    setUser(data.data);
                     navigation.reset({
                         index: 0,
                         routes: [{ name: "Calendar" }],

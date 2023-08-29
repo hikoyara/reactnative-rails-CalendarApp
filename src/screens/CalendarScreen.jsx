@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 /* components */
 import CalendarComponent from "../components/Calendar";
+/* contexts */
+import { UserContext } from "../contexts/UserContext";
 
 export default function CalendarScreen() {
+    const { user } = useContext(UserContext);
+
     const [events, setEvents] = useState([]);
 
     // useEffect(() => {
