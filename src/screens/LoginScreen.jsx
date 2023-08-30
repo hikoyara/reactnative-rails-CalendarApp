@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
 /* components */
 import Loading from "../components/Loading";
+/* lib */
+import { storage } from "../lib/storage";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
@@ -13,6 +15,28 @@ export default function LoginScreen() {
 
     const { setUser } = useContext(UserContext);
 
+    useEffect(() => {
+        setLoading(true);
+        try {
+            storage
+                .load({ key: "userData" })
+                .then((data) => {
+                    setTimeout(() => {
+                        setUser(data);
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: "Calendar" }],
+                        });
+                        setLoading(false);
+                    }, 1000);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                });
+        } catch (error) {
+            setLoading(false);
+        }
+    }, []);
     async function handlePress() {
         setLoading(true);
         try {
@@ -35,7 +59,12 @@ export default function LoginScreen() {
                 const uid = response.headers.get("uid");
                 const tokenType = response.headers.get("token-type");
 
-                setUser(responseData.data);
+                await storage.save({
+                    key: "userData",
+                    data: { accessToken, client, uid, tokenType },
+                });
+
+                await storage.load({ key: "userData" }).then((data) => setUser(data));
 
                 navigation.reset({
                     index: 0,
