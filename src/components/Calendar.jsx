@@ -3,7 +3,9 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 /* utils */
 import { WindowSize } from "../utils/WindowSize";
 
-export default function App() {
+export default function App(props) {
+    const { events } = props;
+
     return (
         <Calendar
             style={{

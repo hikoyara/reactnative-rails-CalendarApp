@@ -21,15 +21,13 @@ export default function CalendarScreen() {
             },
         })
             .then((response) => response.json())
-            .then((data) => console.log(data));
+            .then((data) => setEvents(data));
     }, []);
-
-    console.log(user);
 
     return (
         <View style={styles.container}>
-            <CalendarComponent />
-            <LogoutButton style={{ top: 0, left: 0 }} />
+            <CalendarComponent events={events} />
+            <LogoutButton style={{ bottom: 40, right: 20 }} />
         </View>
     );
 }

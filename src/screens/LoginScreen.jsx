@@ -37,6 +37,7 @@ export default function LoginScreen() {
             setLoading(false);
         }
     }, []);
+
     async function handlePress() {
         setLoading(true);
         try {

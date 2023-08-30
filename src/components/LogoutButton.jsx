@@ -1,19 +1,30 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 /* lib */
 import { storage } from "../lib/storage";
+/* icon */
+import { Entypo } from "@expo/vector-icons";
+/* navigation */
+import { useNavigation } from "@react-navigation/native";
 
 export default function LogoutButton(props) {
     const { style } = props;
+    const navigation = useNavigation();
 
     return (
         <TouchableOpacity
             style={[styles.wrapper, style]}
             onPress={() => {
-                storage.remove({ key: "userData" });
+                storage.remove({ key: "userData" }).then(() => {
+                    Alert.alert("ログアウトしました。");
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "Login" }],
+                    });
+                });
             }}
         >
-            <Text style={styles.text}>ログアウト</Text>
+            <Entypo name="log-out" size={30} color="#fff" />
         </TouchableOpacity>
     );
 }
@@ -21,13 +32,14 @@ export default function LogoutButton(props) {
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: "red",
-        padding: 4,
-        borderRadius: 4,
+        borderRadius: 50,
         position: "absolute",
-    },
-    text: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 16,
+        width: 50,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 3, height: 3 },
     },
 });
