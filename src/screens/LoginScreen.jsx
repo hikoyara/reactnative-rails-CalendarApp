@@ -1,16 +1,20 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
+/* components */
+import Loading from "../components/Loading";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [loading, setLoading] = useState(false);
 
     const { setUser } = useContext(UserContext);
 
     async function handlePress() {
+        setLoading(true);
         try {
             const response = await fetch("http://localhost:3001/auth/sign_in", {
                 method: "POST",
@@ -37,11 +41,16 @@ export default function LoginScreen() {
                     index: 0,
                     routes: [{ name: "Calendar" }],
                 });
+
+                setLoading(false);
             } else {
                 console.log("Login failed:", responseData.errors);
+                Alert.alert("ユーザーが見つかりません");
+                setLoading(false);
             }
         } catch (error) {
-            console.error("Error:", error);
+            Alert.alert("サーバーに接続できません", "時間を置いてお試しください。");
+            setLoading(false);
         }
     }
 
@@ -53,6 +62,7 @@ export default function LoginScreen() {
             <TouchableOpacity style={styles.button} onPress={handlePress}>
                 <Text style={styles.buttonText}>ログイン</Text>
             </TouchableOpacity>
+            <Loading loading={loading} />
         </View>
     );
 }
