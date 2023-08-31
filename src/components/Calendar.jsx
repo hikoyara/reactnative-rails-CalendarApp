@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Text } from "react-native";
 import { Calendar } from "react-native-big-calendar";
+/* components */
+import AppBar from "./AppBar";
 
 export default function App(props) {
     const { events } = props;
+
+    const [currentMonth, setCurrentMonth] = useState();
+
+    console.log(new Date());
 
     const eventsArray = [];
     events.map((event) => {
@@ -14,5 +20,10 @@ export default function App(props) {
         });
     });
 
-    return <Calendar events={eventsArray} height={100} mode="month" />;
+    return (
+        <>
+            <AppBar>カレンダー</AppBar>
+            <Calendar events={eventsArray} height={100} mode="month" onChangeDate={() => console.log("aa")} />
+        </>
+    );
 }

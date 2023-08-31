@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./src/screens/LoginScreen";
@@ -13,12 +14,14 @@ export default function App() {
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="Calendar" component={CalendarScreen} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <SafeAreaView style={{ flex: 1 }}>
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="Login" component={LoginScreen} />
+                        <Stack.Screen name="Calendar" component={CalendarScreen} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </SafeAreaView>
         </UserContext.Provider>
     );
 }

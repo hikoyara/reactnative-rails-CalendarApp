@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
 /* components */
 import Loading from "../components/Loading";
+import AppBar from "../components/AppBar";
 /* lib */
 import { storage } from "../lib/storage";
 
@@ -86,12 +87,15 @@ export default function LoginScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>ログイン</Text>
-            <TextInput style={styles.input} placeholder="email" autoCapitalize="none" keyboardType="email-address" onChangeText={(text) => setEmail(text)} value={email} />
-            <TextInput style={styles.input} placeholder="password" autoCapitalize="none" onChangeText={(text) => setPassword(text)} value={password} />
-            <TouchableOpacity style={styles.button} onPress={handlePress}>
-                <Text style={styles.buttonText}>ログイン</Text>
-            </TouchableOpacity>
+            <AppBar>ログイン</AppBar>
+            <View style={styles.body}>
+                <Text style={styles.title}>ログイン</Text>
+                <TextInput style={styles.input} placeholder="email" autoCapitalize="none" keyboardType="email-address" onChangeText={(text) => setEmail(text)} value={email} />
+                <TextInput style={styles.input} placeholder="password" autoCapitalize="none" onChangeText={(text) => setPassword(text)} value={password} />
+                <TouchableOpacity style={styles.button} onPress={handlePress}>
+                    <Text style={styles.buttonText}>ログイン</Text>
+                </TouchableOpacity>
+            </View>
             <Loading loading={loading} />
         </View>
     );
@@ -101,10 +105,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    body: {
         alignItems: "flex-start",
         justifyContent: "flex-start",
         paddingHorizontal: 20,
-        paddingTop: 40,
         height: "100%",
     },
     title: {

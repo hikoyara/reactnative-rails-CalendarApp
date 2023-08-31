@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 /* components */
 import CalendarComponent from "../components/Calendar";
