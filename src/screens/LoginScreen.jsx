@@ -87,7 +87,6 @@ export default function LoginScreen() {
 
     return (
         <View style={styles.container}>
-            <AppBar>ログイン</AppBar>
             <View style={styles.body}>
                 <Text style={styles.title}>ログイン</Text>
                 <TextInput style={styles.input} placeholder="email" autoCapitalize="none" keyboardType="email-address" onChangeText={(text) => setEmail(text)} value={email} />
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         justifyContent: "flex-start",
         paddingHorizontal: 20,
+        paddingTop: 100,
         height: "100%",
     },
     title: {

@@ -7,9 +7,7 @@ import AppBar from "./AppBar";
 export default function App(props) {
     const { events } = props;
 
-    const [currentMonth, setCurrentMonth] = useState();
-
-    console.log(new Date());
+    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
 
     const eventsArray = [];
     events.map((event) => {
@@ -22,8 +20,8 @@ export default function App(props) {
 
     return (
         <>
-            <AppBar>カレンダー</AppBar>
-            <Calendar events={eventsArray} height={100} mode="month" onChangeDate={() => console.log("aa")} />
+            <AppBar>{currentMonth}月</AppBar>
+            <Calendar events={eventsArray} height={100} mode="month" onChangeDate={(e) => setCurrentMonth(e[0].getMonth() + 1)} />
         </>
     );
 }
