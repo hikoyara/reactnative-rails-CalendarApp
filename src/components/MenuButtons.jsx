@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Animated } from "react-native";
+/* components */
+import LogoutButton from "./LogoutButton";
 /* utils */
 import { WindowSize } from "../utils/WindowSize";
 /* icon */
@@ -12,6 +14,9 @@ export default function MenuButtons() {
     const plusAnimatedValue = useRef(new Animated.Value(0)).current;
     const calendarAnimatedValue = useRef(new Animated.Value(1)).current;
     const backAnimatedValue = useRef(new Animated.Value(2)).current;
+    const calendarTextAnimatedValue = useRef(new Animated.Value(3)).current;
+    const logoutAnimatedValue = useRef(new Animated.Value(4)).current;
+    const logoutTextAnimatedValue = useRef(new Animated.Value(5)).current;
 
     const plusInterPolateRotate = plusAnimatedValue.interpolate({
         inputRange: [0, 150],
@@ -55,6 +60,45 @@ export default function MenuButtons() {
         opacity: backInterPolateOpacity,
     };
 
+    const calendarTextInterPolateOpacity = calendarTextAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, 1],
+    });
+    const calendarTextInterPolatetranslate = calendarTextAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [5, 0],
+    });
+    const calendarTextAnimatedStyle = {
+        opacity: calendarTextInterPolateOpacity,
+        transform: [{ translateY: calendarTextInterPolatetranslate }],
+    };
+
+    const logoutInterPolateOpacity = logoutAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, 1],
+    });
+    const logoutInterPolatetranslate = logoutAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, 1],
+    });
+    const logoutAnimatedStyle = {
+        opacity: logoutInterPolateOpacity,
+        transform: [{ scale: logoutInterPolatetranslate }, { translateY: -25 }],
+    };
+
+    const logoutTextInterPolateOpacity = logoutTextAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, 1],
+    });
+    const logoutTextInterPolatetranslate = logoutTextAnimatedValue.interpolate({
+        inputRange: [0, 150],
+        outputRange: [5, 0],
+    });
+    const logoutTextAnimatedStyle = {
+        opacity: logoutTextInterPolateOpacity,
+        transform: [{ translateY: logoutTextInterPolatetranslate }],
+    };
+
     const startAnimation = () => {
         setIsOpen(true);
         Animated.parallel([
@@ -73,6 +117,22 @@ export default function MenuButtons() {
                 duration: 200,
                 useNativeDriver: true,
             }),
+            Animated.timing(calendarTextAnimatedValue, {
+                toValue: 150,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(logoutAnimatedValue, {
+                toValue: 150,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(logoutTextAnimatedValue, {
+                toValue: 150,
+                duration: 200,
+                delay: 100,
+                useNativeDriver: true,
+            }),
         ]).start();
     };
     const reverseAnimation = () => {
@@ -88,6 +148,21 @@ export default function MenuButtons() {
                 useNativeDriver: true,
             }),
             Animated.timing(backAnimatedValue, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(calendarTextAnimatedValue, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(logoutAnimatedValue, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(logoutTextAnimatedValue, {
                 toValue: 0,
                 duration: 200,
                 useNativeDriver: true,
@@ -113,6 +188,13 @@ export default function MenuButtons() {
                     <FontAwesome5 name="calendar-plus" size={36} color="#2983FF" />
                 </Animated.View>
             </TouchableOpacity>
+            {isOpen && <Animated.Text style={[calendarTextAnimatedStyle, styles.calendarText]}>予定</Animated.Text>}
+            {isOpen && (
+                <Animated.View style={[logoutAnimatedStyle, styles.logoutButton]}>
+                    <LogoutButton />
+                </Animated.View>
+            )}
+            {isOpen && <Animated.Text style={[logoutTextAnimatedStyle, styles.logoutText]}>ログアウト</Animated.Text>}
         </>
     );
 }
@@ -151,5 +233,25 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 17,
         left: 19,
+    },
+    calendarText: {
+        fontSize: 16,
+        position: "absolute",
+        bottom: 47,
+        right: 110,
+        zIndex: 11,
+    },
+    logoutButton: {
+        position: "absolute",
+        zIndex: 11,
+        bottom: 85,
+        right: 30,
+    },
+    logoutText: {
+        fontSize: 16,
+        position: "absolute",
+        bottom: 123,
+        right: 90,
+        zIndex: 11,
     },
 });

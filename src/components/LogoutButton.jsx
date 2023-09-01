@@ -16,11 +16,23 @@ export default function LogoutButton(props) {
             style={[styles.wrapper, style]}
             onPress={() => {
                 storage.remove({ key: "userData" }).then(() => {
-                    Alert.alert("ログアウトしました。");
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: "Login" }],
-                    });
+                    Alert.alert("ログアウトします", "よろしいですか？", [
+                        {
+                            text: "はい",
+                            style: "destructive",
+                            onPress: () => {
+                                Alert.alert("ログアウトしました。");
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [{ name: "Login" }],
+                                });
+                            },
+                        },
+                        {
+                            text: "いいえ",
+                            onPress: () => {},
+                        },
+                    ]);
                 });
             }}
         >
@@ -33,7 +45,6 @@ const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: "red",
         borderRadius: 50,
-        position: "absolute",
         width: 50,
         height: 50,
         justifyContent: "center",
