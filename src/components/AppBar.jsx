@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
     },
     text: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600",
     },
 });

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 /* components */
 import CalendarComponent from "../components/Calendar";
 import LogoutButton from "../components/LogoutButton";
+import MenuButtons from "../components/MenuButtons";
 /* contexts */
 import { UserContext } from "../contexts/UserContext";
 
@@ -27,7 +28,7 @@ export default function CalendarScreen() {
     return (
         <View style={styles.container}>
             <CalendarComponent events={events} />
-            <LogoutButton style={{ bottom: 40, right: 20 }} />
+            <MenuButtons />
         </View>
     );
 }
