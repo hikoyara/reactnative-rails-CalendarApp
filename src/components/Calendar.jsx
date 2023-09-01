@@ -5,7 +5,7 @@ import { Calendar } from "react-native-big-calendar";
 import AppBar from "./AppBar";
 
 export default function App(props) {
-    const { events } = props;
+    const { events, navigation } = props;
 
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
 
@@ -21,7 +21,16 @@ export default function App(props) {
     return (
         <>
             <AppBar>{currentMonth}月</AppBar>
-            <Calendar events={eventsArray} height={100} mode="month" onChangeDate={(e) => setCurrentMonth(e[0].getMonth() + 1)} />
+            <Calendar
+                events={eventsArray}
+                height={100}
+                mode="month"
+                onChangeDate={(e) => setCurrentMonth(e[0].getMonth() + 1)}
+                onPressCell={(day) => {}}
+                onPressEvent={(event) => {
+                    console.log(event);
+                }}
+            />
         </>
     );
 }

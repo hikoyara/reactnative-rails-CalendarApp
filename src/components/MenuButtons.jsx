@@ -8,7 +8,9 @@ import { WindowSize } from "../utils/WindowSize";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function MenuButtons() {
+export default function MenuButtons(props) {
+    const { navigation } = props;
+
     const [isOpen, setIsOpen] = useState(false);
 
     const plusAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -170,6 +172,15 @@ export default function MenuButtons() {
         ]).start(() => setIsOpen(false));
     };
 
+    function handlePress() {
+        if (isOpen) {
+            reverseAnimation();
+            navigation.navigate("EventCreate");
+        } else {
+            startAnimation();
+        }
+    }
+
     return (
         <>
             {isOpen && (
@@ -180,7 +191,7 @@ export default function MenuButtons() {
                 </Animated.View>
             )}
 
-            <TouchableOpacity style={styles.menuBtn} onPress={isOpen ? () => {} : startAnimation}>
+            <TouchableOpacity style={styles.menuBtn} onPress={handlePress}>
                 <Animated.View style={[plusAnimatedButtonStyle, styles.iconPlusWrapper]}>
                     <Feather name="plus" size={42} color={"#2983FF"} />
                 </Animated.View>

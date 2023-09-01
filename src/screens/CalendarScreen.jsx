@@ -8,7 +8,8 @@ import MenuButtons from "../components/MenuButtons";
 /* contexts */
 import { UserContext } from "../contexts/UserContext";
 
-export default function CalendarScreen() {
+export default function CalendarScreen(props) {
+    const { navigation } = props;
     const { user } = useContext(UserContext);
 
     const [events, setEvents] = useState([]);
@@ -27,8 +28,8 @@ export default function CalendarScreen() {
 
     return (
         <View style={styles.container}>
-            <CalendarComponent events={events} />
-            <MenuButtons />
+            <CalendarComponent events={events} navigation={navigation} />
+            <MenuButtons navigation={navigation} />
         </View>
     );
 }
