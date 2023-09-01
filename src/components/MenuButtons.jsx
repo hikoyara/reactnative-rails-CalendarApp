@@ -56,7 +56,7 @@ export default function MenuButtons() {
         inputRange: [0, 150],
         outputRange: [0, 1],
     });
-    const backAnimatedButtonStyle = {
+    const backAnimatedStyle = {
         opacity: backInterPolateOpacity,
     };
 
@@ -173,7 +173,7 @@ export default function MenuButtons() {
     return (
         <>
             {isOpen && (
-                <Animated.View style={[backAnimatedButtonStyle, styles.back]}>
+                <Animated.View style={[backAnimatedStyle, styles.back]}>
                     <TouchableWithoutFeedback onPress={reverseAnimation}>
                         <View style={{ flex: 1 }}></View>
                     </TouchableWithoutFeedback>
@@ -185,8 +185,9 @@ export default function MenuButtons() {
                     <Feather name="plus" size={42} color={"#2983FF"} />
                 </Animated.View>
                 <Animated.View style={[calendarAnimatedButtonStyle, styles.iconCalendarWrapper]}>
-                    <FontAwesome5 name="calendar-plus" size={36} color="#2983FF" />
+                    <FontAwesome5 name="calendar-plus" size={36} color="#fff" />
                 </Animated.View>
+                <Animated.View style={[backAnimatedStyle, styles.btnBack]}></Animated.View>
             </TouchableOpacity>
             {isOpen && <Animated.Text style={[calendarTextAnimatedStyle, styles.calendarText]}>予定</Animated.Text>}
             {isOpen && (
@@ -228,11 +229,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: (70 - 42) / 2,
         left: (70 - 42) / 2,
+        zIndex: 11,
     },
     iconCalendarWrapper: {
         position: "absolute",
         top: 17,
         left: 19,
+        zIndex: 11,
     },
     calendarText: {
         fontSize: 16,
@@ -253,5 +256,13 @@ const styles = StyleSheet.create({
         bottom: 123,
         right: 90,
         zIndex: 11,
+    },
+    btnBack: {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#2983FF",
+        borderRadius: 70,
+        zIndex: 10,
     },
 });
