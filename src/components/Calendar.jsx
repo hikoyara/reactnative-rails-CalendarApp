@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import { Calendar } from "react-native-big-calendar";
 /* components */
 import AppBar from "./AppBar";
+import "dayjs/locale/ja";
 
 export default function App(props) {
     const { events, navigation } = props;
@@ -30,6 +31,7 @@ export default function App(props) {
                 onPressEvent={(event) => {
                     console.log(event);
                 }}
+                locale="ja"
             />
         </>
     );
