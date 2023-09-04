@@ -9,6 +9,7 @@ const storage = new Storage({
 
     // 3日
     defaultExpires: 1000 * 3600 * 72,
+
     enableCache: true,
 });
 

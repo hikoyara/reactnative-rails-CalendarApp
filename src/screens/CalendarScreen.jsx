@@ -3,7 +3,6 @@ import { View, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 /* components */
 import CalendarComponent from "../components/Calendar";
-import LogoutButton from "../components/LogoutButton";
 import MenuButtons from "../components/MenuButtons";
 /* contexts */
 import { UserContext } from "../contexts/UserContext";
