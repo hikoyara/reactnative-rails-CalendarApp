@@ -13,7 +13,9 @@ export default function App(props) {
     const eventsArray = [];
     events.map((event) => {
         eventsArray.push({
+            id: event.id,
             title: event.title,
+            description: event.description,
             start: new Date(event.start_date),
             end: new Date(event.end_date),
         });
@@ -29,7 +31,7 @@ export default function App(props) {
                 onChangeDate={(e) => setCurrentMonth(e[0].getMonth() + 1)}
                 onPressCell={(day) => {}}
                 onPressEvent={(event) => {
-                    console.log(event);
+                    navigation.navigate("EventUpdate", { event });
                 }}
                 locale="ja"
             />

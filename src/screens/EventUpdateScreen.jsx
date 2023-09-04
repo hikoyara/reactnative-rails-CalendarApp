@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 /* components */
 import DatePicker from "../components/DatePicker";
-import EventCreateButton from "../components/EventCreateButton";
+import EventUpdateButton from "../components/EventUpdateButton";
 /* icon */
 import { AntDesign } from "@expo/vector-icons";
 /* lib */
 import { WindowSize } from "../utils/WindowSize";
 
-export default function EventCreateScreen(props) {
-    const { navigation } = props;
+export default function EventUpdateScreen(props) {
+    const { navigation, route } = props;
+    const { event } = route.params;
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
+    const [title, setTitle] = useState(event.title);
+    const [description, setDescription] = useState(event.description.length > 0 ? event.description : "");
+    const [startDate, setStartDate] = useState(event.start);
     const [isStartVisible, setIsStartVisible] = useState(false);
-    const [endDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(event.end);
     const [isEndVisible, setIsEndVisible] = useState(false);
 
     return (
@@ -29,7 +30,7 @@ export default function EventCreateScreen(props) {
             <View style={styles.body}>
                 <View style={styles.box}>
                     <Text style={styles.title}>タイトル</Text>
-                    <TextInput autoFocus={true} style={styles.input} placeholder="タイトル" placeholderTextColor="#707070" returnKeyType="done" value={title} autoCapitalize="none" onChangeText={(text) => setTitle(text)} />
+                    <TextInput style={styles.input} placeholder="タイトル" placeholderTextColor="#707070" returnKeyType="done" value={title} autoCapitalize="none" onChangeText={(text) => setTitle(text)} />
                 </View>
                 <View style={styles.box}>
                     <Text style={styles.title}>ディスクリプション</Text>
@@ -43,7 +44,7 @@ export default function EventCreateScreen(props) {
                     <Text style={styles.title}>予定終了日付</Text>
                     <DatePicker date={endDate} setDate={setEndDate} isVisible={isEndVisible} setIsVisible={setIsEndVisible} />
                 </View>
-                <EventCreateButton title={title} description={description} startDate={startDate} endDate={endDate} />
+                <EventUpdateButton id={event.id} title={title} description={description} startDate={startDate} endDate={endDate} />
             </View>
         </View>
     );
