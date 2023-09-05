@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 /* components */
 import DatePicker from "../components/DatePicker";
 import EventUpdateButton from "../components/EventUpdateButton";
+import EventDeleteButton from "../components/EventDeleteButton";
 /* icon */
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 /* lib */
 import { WindowSize } from "../utils/WindowSize";
+import { deleteCalendarEvent } from "../lib/api/calendarEvent";
 
 export default function EventUpdateScreen(props) {
     const { navigation, route } = props;
@@ -26,6 +29,7 @@ export default function EventUpdateScreen(props) {
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconWrapper}>
                     <AntDesign name="close" size={28} color="#707070" />
                 </TouchableOpacity>
+                <EventDeleteButton eventId={event.id} />
             </View>
             <View style={styles.body}>
                 <View style={styles.box}>
@@ -70,7 +74,9 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 10,
         marginBottom: 10,
-        alignItems: "flex-start",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     body: {
         paddingHorizontal: 20,

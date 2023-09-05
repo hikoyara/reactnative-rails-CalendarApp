@@ -51,3 +51,28 @@ export const updateCalendarEvent = async (user, params) => {
         false;
     }
 };
+
+export const deleteCalendarEvent = async (user, eventId) => {
+    if (!user.accessToken || !user.client || !user.uid) return false;
+    try {
+        const response = await fetch(`http://localhost:3001/calendar_events/${eventId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": user.accessToken,
+                client: user.client,
+                uid: user.uid,
+            },
+        });
+        if (response.ok) {
+            console.log("Event deleted.");
+            return true;
+        } else {
+            console.log(`HTTPエラーコード: ${response.status}`);
+            return false;
+        }
+    } catch (error) {
+        console.log("Error deleting event:", error);
+        return false;
+    }
+};
