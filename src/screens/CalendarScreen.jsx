@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { useState, useEffect } from "react";
 /* components */
 import CalendarComponent from "../components/Calendar";
 import MenuButtons from "../components/MenuButtons";
+/* lib */
+import { getCalendarEvents } from "../lib/api/calendarEvent";
 /* contexts */
 import { UserContext } from "../contexts/UserContext";
 
@@ -13,16 +15,23 @@ export default function CalendarScreen(props) {
 
     const [events, setEvents] = useState([]);
 
+    const clearEvents = async () => {
+        try {
+            const res = await getCalendarEvents(user);
+            setEvents(res);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     useEffect(() => {
-        fetch("http://localhost:3001/calendar_events", {
-            headers: {
-                "access-token": user.accessToken,
-                client: user.client,
-                uid: user.uid,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => setEvents(data));
+        const f = async () => {
+            try {
+                await clearEvents();
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        f();
     }, []);
 
     return (

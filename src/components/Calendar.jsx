@@ -5,7 +5,7 @@ import { Calendar } from "react-native-big-calendar";
 import AppBar from "./AppBar";
 import "dayjs/locale/ja";
 
-export default function App(props) {
+export default function CalendarComponent(props) {
     const { events, navigation } = props;
 
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);

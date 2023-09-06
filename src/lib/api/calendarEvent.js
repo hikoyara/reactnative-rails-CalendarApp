@@ -1,3 +1,26 @@
+export const getCalendarEvents = async (user) => {
+    if (!user.accessToken || !user.client || !user.uid) return;
+    try {
+        const response = await fetch("http://localhost:3001/calendar_events", {
+            headers: {
+                "access-token": user.accessToken,
+                client: user.client,
+                uid: user.uid,
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.log(`HTTPエラーコード: ${response.status}`);
+            return;
+        }
+    } catch (error) {
+        console.log("Error Getting Events: " + error);
+        return;
+    }
+};
+
 export const createCalendarEvent = async (user, params) => {
     if (!user.accessToken || !user.client || !user.uid) return false;
     try {
