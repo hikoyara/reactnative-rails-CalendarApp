@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
 /* components */
 import Loading from "../components/Loading";
-import AppBar from "../components/AppBar";
 /* lib */
 import { storage } from "../lib/storage";
 

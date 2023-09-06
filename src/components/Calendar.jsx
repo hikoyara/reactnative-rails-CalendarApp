@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Text } from "react-native";
 import { Calendar } from "react-native-big-calendar";
 /* components */
 import AppBar from "./AppBar";
@@ -10,16 +9,16 @@ export default function CalendarComponent(props) {
 
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
 
-    const eventsArray = [];
-    events.map((event) => {
-        eventsArray.push({
+    const eventsArray = events
+        .map((event) => ({
             id: event.id,
             title: event.title,
             description: event.description,
             start: new Date(event.start_date),
             end: new Date(event.end_date),
-        });
-    });
+            duration: new Date(event.end_date) - new Date(event.start_date),
+        }))
+        .sort((eventA, eventB) => eventB.duration - eventA.duration);
 
     return (
         <>

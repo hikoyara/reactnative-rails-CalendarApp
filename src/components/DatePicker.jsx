@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 /* icon */
 import { Entypo } from "@expo/vector-icons";
