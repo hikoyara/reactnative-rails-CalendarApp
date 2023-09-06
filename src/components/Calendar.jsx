@@ -6,7 +6,7 @@ import AppBar from "./AppBar";
 import "dayjs/locale/ja";
 
 export default function CalendarComponent(props) {
-    const { events, navigation } = props;
+    const { events, navigation, clearEvents } = props;
 
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
 
@@ -31,7 +31,7 @@ export default function CalendarComponent(props) {
                 onChangeDate={(e) => setCurrentMonth(e[0].getMonth() + 1)}
                 onPressCell={(day) => {}}
                 onPressEvent={(event) => {
-                    navigation.navigate("EventUpdate", { event });
+                    navigation.navigate("EventUpdate", { event, clearEvents });
                 }}
                 locale="ja"
             />

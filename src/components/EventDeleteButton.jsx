@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function EventDeleteButton(props) {
-    const { eventId } = props;
+    const { eventId, clearEvents } = props;
     const { user } = useContext(UserContext);
     const navigation = useNavigation();
 
@@ -22,6 +22,7 @@ export default function EventDeleteButton(props) {
                 onPress: async () => {
                     if (await deleteCalendarEvent(user, eventId)) {
                         navigation.goBack();
+                        await clearEvents();
                     } else {
                         Alert.alert("イベントを削除できませんでした。", "お手数ですがもう一度お試しください。");
                     }

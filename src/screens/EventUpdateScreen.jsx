@@ -6,14 +6,12 @@ import EventUpdateButton from "../components/EventUpdateButton";
 import EventDeleteButton from "../components/EventDeleteButton";
 /* icon */
 import { AntDesign } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
 /* lib */
 import { WindowSize } from "../utils/WindowSize";
-import { deleteCalendarEvent } from "../lib/api/calendarEvent";
 
 export default function EventUpdateScreen(props) {
     const { navigation, route } = props;
-    const { event } = route.params;
+    const { event, clearEvents } = route.params;
 
     const [title, setTitle] = useState(event.title);
     const [description, setDescription] = useState(event.description.length > 0 ? event.description : "");
@@ -29,7 +27,7 @@ export default function EventUpdateScreen(props) {
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconWrapper}>
                     <AntDesign name="close" size={28} color="#707070" />
                 </TouchableOpacity>
-                <EventDeleteButton eventId={event.id} />
+                <EventDeleteButton eventId={event.id} clearEvents={clearEvents} />
             </View>
             <View style={styles.body}>
                 <View style={styles.box}>
@@ -48,7 +46,7 @@ export default function EventUpdateScreen(props) {
                     <Text style={styles.title}>予定終了日付</Text>
                     <DatePicker date={endDate} setDate={setEndDate} isVisible={isEndVisible} setIsVisible={setIsEndVisible} />
                 </View>
-                <EventUpdateButton id={event.id} title={title} description={description} startDate={startDate} endDate={endDate} />
+                <EventUpdateButton id={event.id} title={title} description={description} startDate={startDate} endDate={endDate} clearEvents={clearEvents} />
             </View>
         </View>
     );

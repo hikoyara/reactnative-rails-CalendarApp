@@ -9,7 +9,7 @@ import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function MenuButtons(props) {
-    const { navigation } = props;
+    const { navigation, clearEvents } = props;
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -175,7 +175,7 @@ export default function MenuButtons(props) {
     function handlePress() {
         if (isOpen) {
             reverseAnimation();
-            navigation.navigate("EventCreate");
+            navigation.navigate("EventCreate", { clearEvents });
         } else {
             startAnimation();
         }

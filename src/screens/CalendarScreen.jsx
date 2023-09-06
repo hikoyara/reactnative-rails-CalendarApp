@@ -36,8 +36,8 @@ export default function CalendarScreen(props) {
 
     return (
         <View style={styles.container}>
-            <CalendarComponent events={events} navigation={navigation} />
-            <MenuButtons navigation={navigation} />
+            <CalendarComponent events={events} navigation={navigation} clearEvents={clearEvents} />
+            <MenuButtons navigation={navigation} clearEvents={clearEvents} />
         </View>
     );
 }

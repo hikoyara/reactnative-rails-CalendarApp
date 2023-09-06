@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 
 export default function EventCreateButton(props) {
-    const { title, description, startDate, endDate } = props;
+    const { title, description, startDate, endDate, clearEvents } = props;
     const { user } = useContext(UserContext);
     const navigation = useNavigation();
 
@@ -23,6 +23,7 @@ export default function EventCreateButton(props) {
         };
         if (await createCalendarEvent(user, newEvent)) {
             navigation.goBack();
+            await clearEvents();
         } else {
             Alert.alert("イベントを作成できませんでした。", "お手数ですがもう一度お試しください。");
         }

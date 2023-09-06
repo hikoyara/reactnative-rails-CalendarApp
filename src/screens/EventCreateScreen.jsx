@@ -9,7 +9,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { WindowSize } from "../utils/WindowSize";
 
 export default function EventCreateScreen(props) {
-    const { navigation } = props;
+    const { navigation, route } = props;
+    const { clearEvents } = route.params;
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -43,7 +44,7 @@ export default function EventCreateScreen(props) {
                     <Text style={styles.title}>予定終了日付</Text>
                     <DatePicker date={endDate} setDate={setEndDate} isVisible={isEndVisible} setIsVisible={setIsEndVisible} />
                 </View>
-                <EventCreateButton title={title} description={description} startDate={startDate} endDate={endDate} />
+                <EventCreateButton title={title} description={description} startDate={startDate} endDate={endDate} clearEvents={clearEvents} />
             </View>
         </View>
     );
